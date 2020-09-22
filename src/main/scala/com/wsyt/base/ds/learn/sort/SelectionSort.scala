@@ -23,24 +23,12 @@ object SelectionSort {
         }
       }
 
-      swap(arr,i,minPos)
+      Base.swap(arr,i,minPos)
 
       minPos = i + 1
     }
 
-    printArr(arr)
-  }
-
-  private def swap(arr: Array[Int ],i:Int, j:Int): Unit = {
-    val temp: Int = arr(i)
-    arr(i) = arr(j)
-    arr(j) = temp
-  }
-
-  private def printArr(seq:Seq[Int]) = {
-    for (elem <- seq) {
-      print(s"$elem ":String)
-    }
+    Base.printArr(arr)
   }
 
 }
