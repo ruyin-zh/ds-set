@@ -11,19 +11,17 @@ package com.wsyt.base.ds.learn.sort
 object InsertionSort {
 
   def main(args: Array[String]): Unit = {
-    val arr: Array[Int] = Array(5, 3, 6, 8, 1, 7, 9, 4, 2)
+    val arr: Array[Int] = BaseUtil.generateRandomArr().toArray
 
     val length: Int = arr.length
 
     for (i <- 1 until length){
-      for (j <- i until 0 by -1){
-        if (arr(j) < arr(j-1)){
-          Base.swap(arr,j,j-1)
-        }
+      for (j <- i until 0 by -1 if arr(j) < arr(j-1)){
+        BaseUtil.swap(arr,j,j-1)
       }
     }
 
-    Base.printArr(arr)
+    BaseUtil.printArr(arr)
   }
 
 }
