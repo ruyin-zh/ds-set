@@ -6,22 +6,23 @@ package com.wsyt.base.ds.learn.sort
  * @Date 2020/9/22
  * @Title 冒泡排序--简单排序
  * @Desc 从左到右依次令相邻元素进行比较
+ *       从数组第一个位置开始向后比较:
+ *         1)、相邻两元素一次对比,若小于(或大于)则交换,每一轮需要对比的元素数为n-1;
+ *         2)、循环1)步骤直至外层循环结束;
+ *       不论数组是否有序,时间复杂度将为n²,空间复杂度为1;
  *
  * */
 object BubbleSort {
 
-  def main(args: Array[String]): Unit = {
-    val arr: Array[Int] = BaseUtil.generateRandomArr().toArray
 
+  def sort(arr: Array[Int]): Unit ={
     val length: Int = arr.length
 
-    for (_ <- 0 until length-1) {
+    for (_ <- 1 until length) {
       for (j <- 0 until length - 1 if arr(j) > arr(j+1)){
         BaseUtil.swap(arr,j,j+1)
       }
     }
-
-    BaseUtil.printArr(arr)
   }
 
 }
