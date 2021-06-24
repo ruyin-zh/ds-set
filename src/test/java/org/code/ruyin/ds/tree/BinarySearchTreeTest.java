@@ -2,6 +2,7 @@ package org.code.ruyin.ds.tree;
 
 import org.code.ruyin.ds.BaseTest;
 import org.code.ruyin.ds.tree.binary.BinarySearchTree;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,6 +15,7 @@ public class BinarySearchTreeTest extends BaseTest {
 
 
     @Test
+    @DisplayName("二叉搜索树构建及操作")
     public void buildBinarySearchTree(){
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         tree.insert(6);
@@ -25,8 +27,9 @@ public class BinarySearchTreeTest extends BaseTest {
         tree.insert(4);
 
         tree.printTree();
-
         tree.remove(2);
+        System.out.println("-------------------------------------");
+        tree.printTree();
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
  * @description 使二叉树成为二叉搜索树的性质:
  *              对于树中的每个节点X,它的左子树中所有项的值小于X中的项,它的右子树中所有项的值都大于X中的项;
  */
-public class BinarySearchTree<T> {
+public class BinarySearchTree<T extends Comparable<T>> {
 
     //此处为了简单起见,各项值之间互斥不存在重复值
     private BinaryNode<T> root;
@@ -108,7 +108,7 @@ public class BinarySearchTree<T> {
             return Optional.of(node);
         }
 
-        return findMax(node.getLeft());
+        return findMin(node.getLeft());
     }
 
     /**
@@ -152,6 +152,7 @@ public class BinarySearchTree<T> {
     }
 
     private BinaryNode<T> remove(T x, BinaryNode<T> node){
+        //不存在左右节点则直接赋值为null
         if (node == null){
             return null;
         }
@@ -188,7 +189,7 @@ public class BinarySearchTree<T> {
             return cmp.compare(lhs,rhs);
         }
 
-        return ((Comparable<T>)lhs).compareTo(rhs);
+        return lhs.compareTo(rhs);
     }
 
     /**
