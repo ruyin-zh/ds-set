@@ -15,9 +15,6 @@ public class TreeNode<T> {
     private TreeNode<T> nextSibling;
 
 
-
-
-
     public T getElement() {
         return element;
     }

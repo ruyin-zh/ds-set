@@ -161,7 +161,9 @@ public class BinarySearchTree<T> {
             node.left = remove(x, node.left);
         }else if (cmpResult > 0){
             node.right = remove(x, node.right);
-        }else if (node.left != null && node.right != null){
+        }
+        //存在两个子节点
+        else if (node.left != null && node.right != null){
             node.element = findMin(node.right).map(BinaryNode::getElement).orElse(null);
             node.right = remove(node.element, node.right);
         }else {
