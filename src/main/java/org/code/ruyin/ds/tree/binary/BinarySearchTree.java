@@ -85,9 +85,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
         int cmpResult = compatibleCompare(x, node.element);
         //TODO 此处调用可以替换为尾递归,避免调用栈过深
         if (cmpResult < 0){
-            return contains(x, node.getLeft());
+            return contains(x, node.left);
         }else if (cmpResult > 0){
-            return contains(x, node.getRight());
+            return contains(x, node.right);
         }else {
             return true;
         }
@@ -104,11 +104,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return Optional.empty();
         }
 
-        if (node.getLeft() == null){
+        if (node.left == null){
             return Optional.of(node);
         }
 
-        return findMin(node.getLeft());
+        return findMin(node.left);
     }
 
     /**
@@ -122,8 +122,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return Optional.empty();
         }
 
-        while (node.getRight() != null){
-            node = node.getRight();
+        while (node.right != null){
+            node = node.right;
         }
         return Optional.of(node);
     }
@@ -213,26 +213,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         public T getElement() {
             return element;
-        }
-
-        public void setElement(T element) {
-            this.element = element;
-        }
-
-        public BinaryNode<T> getLeft() {
-            return left;
-        }
-
-        public void setLeft(BinaryNode<T> left) {
-            this.left = left;
-        }
-
-        public BinaryNode<T> getRight() {
-            return right;
-        }
-
-        public void setRight(BinaryNode<T> right) {
-            this.right = right;
         }
     }
 }

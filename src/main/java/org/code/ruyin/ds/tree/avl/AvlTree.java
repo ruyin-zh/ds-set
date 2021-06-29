@@ -8,13 +8,15 @@ import java.util.Optional;
  * @author hjxz
  * @date 2021/6/24
  * @title
- * @description
+ * @description 针对二叉搜索树移除和插入操作之后出现的不平衡进行处理,防止出现最坏情况演变成线性结构
+ *              平衡二叉树的性质: 任何节点左右子树高度差不可超过1;
+ *
  */
-public class AvlSearchTree<T extends Comparable<T>> {
+public class AvlTree<T extends Comparable<T>> {
 
     private AvlNode<T> root;
 
-    public AvlSearchTree(){
+    public AvlTree(){
         this.root = null;
     }
 
@@ -105,7 +107,7 @@ public class AvlSearchTree<T extends Comparable<T>> {
      *
      * 从当前节点开始评估当前是否处于平衡状态
      * 核心方法
-     * @param node 开始平衡校验节点
+     * @param node 根节点
      *
      * */
     private AvlNode<T> balance(AvlNode<T> node){
@@ -154,17 +156,18 @@ public class AvlSearchTree<T extends Comparable<T>> {
     /**
      *
      * 通过LL进行平衡节点高度
-     * @param alphaNode 左右高度不平衡节点
+     * @param k2 左右高度不平衡节点
      * @return 返回节点替换原高度不平衡位置
      *
      * */
-    private AvlNode<T> rotateWithLeftChild(AvlNode<T> alphaNode){
-        AvlNode<T> leftNode = alphaNode.leftNode;
-        alphaNode.leftNode = leftNode.rightNode;
-        leftNode.rightNode = alphaNode;
-        alphaNode.height = Math.max(height(alphaNode.leftNode),height(alphaNode.rightNode)) + 1;
-        leftNode.height = Math.max(height(leftNode.leftNode), height(leftNode.rightNode)) + 1;
-        return leftNode;
+    private AvlNode<T> rotateWithLeftChild(AvlNode<T> k2){
+        AvlNode<T> k1 = k2.leftNode;
+        k2.leftNode = k1.rightNode;
+        k1.rightNode = k2;
+
+        k2.height = Math.max(height(k2.leftNode),height(k2.rightNode)) + 1;
+        k1.height = Math.max(height(k1.leftNode), height(k1.rightNode)) + 1;
+        return k1;
     }
 
     /**
@@ -181,16 +184,17 @@ public class AvlSearchTree<T extends Comparable<T>> {
     /**
      *
      * 通过RR进行平衡节点高度
-     * @param alphaNode 左右高度不平衡节点
+     * @param k2 左右高度不平衡节点
      * @return  返回节点替换原高度不平衡位置
      * */
-    private AvlNode<T> rotateWithRightChild(AvlNode<T> alphaNode){
-        AvlNode<T> rightNode = alphaNode.rightNode;
-        alphaNode.rightNode = rightNode.leftNode;
-        rightNode.leftNode = alphaNode;
-        alphaNode.height = Math.max(height(alphaNode.leftNode),height(alphaNode.rightNode)) + 1;
-        rightNode.height = Math.max(height(rightNode.leftNode),height(rightNode.rightNode)) + 1;
-        return rightNode;
+    private AvlNode<T> rotateWithRightChild(AvlNode<T> k2){
+        AvlNode<T> k1 = k2.rightNode;
+        k2.rightNode = k1.leftNode;
+        k1.leftNode = k2;
+
+        k2.height = Math.max(height(k2.leftNode),height(k2.rightNode)) + 1;
+        k1.height = Math.max(height(k1.leftNode),height(k1.rightNode)) + 1;
+        return k1;
     }
 
     /**
@@ -226,34 +230,6 @@ public class AvlSearchTree<T extends Comparable<T>> {
 
         public T getElement() {
             return element;
-        }
-
-        public void setElement(T element) {
-            this.element = element;
-        }
-
-        public AvlNode<T> getLeftNode() {
-            return leftNode;
-        }
-
-        public void setLeftNode(AvlNode<T> leftNode) {
-            this.leftNode = leftNode;
-        }
-
-        public AvlNode<T> getRightNode() {
-            return rightNode;
-        }
-
-        public void setRightNode(AvlNode<T> rightNode) {
-            this.rightNode = rightNode;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
         }
     }
 }
