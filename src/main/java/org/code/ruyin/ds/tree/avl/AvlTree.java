@@ -36,8 +36,27 @@ public class AvlTree<T extends Comparable<T>> {
         return findMax(root).map(AvlNode::getElement).orElse(null);
     }
 
+    public void insert(T element){
+        root = insert(element,root);
+    }
+
     public boolean isEmpty(){
         return root == null;
+    }
+
+
+    public void printTree(){
+        printTree(root);
+    }
+
+    private void printTree(AvlNode<T> node){
+        if (node == null){
+            return;
+        }
+
+        printTree(node.leftNode);
+        System.out.println(node.element);
+        printTree(node.rightNode);
     }
 
     private Optional<AvlNode<T>> findMin(AvlNode<T> node){
@@ -79,9 +98,9 @@ public class AvlTree<T extends Comparable<T>> {
     /**
      *
      * 从指定节点插入一个对象
-     * @param node
-     * @param element
-     *
+     * @param node 子树的根节点
+     * @param element 插入的元素
+     * @return 子树的新根节点
      * */
     private AvlNode<T> insert(T element, AvlNode<T> node){
         if (node == null){
@@ -115,12 +134,14 @@ public class AvlTree<T extends Comparable<T>> {
             return null;
         }
         if (height(node.leftNode) - height(node.rightNode) > ALLOWED_IMBALANCE){
-            if (height(node.leftNode.leftNode) >= height(node.rightNode.rightNode)){
+            //兼容在移除操作时根节点左子树的左右子树高度相等情况,此种情况可直接使用LL旋转
+            if (height(node.leftNode.leftNode) >= height(node.leftNode.rightNode)){
                 node = rotateWithLeftChild(node);
             }else {
                 node = doubleWithLeftChild(node);
             }
         }else if (height(node.rightNode) - height(node.leftNode) > ALLOWED_IMBALANCE){
+            //兼容在移除操作时根节点右子树的左右子树高度相等情况,此种情况可直接使用RR旋转
             if (height(node.rightNode.rightNode) >= height(node.rightNode.leftNode)){
                 node = rotateWithRightChild(node);
             }else {
