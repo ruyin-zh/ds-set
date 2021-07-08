@@ -56,12 +56,16 @@ public class SeparateChainingHashTable<T> {
         currentSize = 0;
     }
 
+    //散列表默认大小
     private static final int DEFAULT_TABLE_SIZE = 101;
 
+    //散列表结构
     private List<T>[] list;
 
+    //当前散列表的填充数据的位置数(不包括子链的元素)
     private int currentSize;
 
+    //重新移动数据需要重新开辟内存空间及插入的操作
     private void rehash(){
         List<T>[] oldList = list;
 
