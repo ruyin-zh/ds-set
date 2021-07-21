@@ -1,6 +1,6 @@
 package org.code.ruyin.ds.tree.avl;
 
-import org.code.ruyin.ds.tree.UnderflowException;
+import org.code.ruyin.ds.ex.UnderflowException;
 
 import java.util.Optional;
 

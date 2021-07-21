@@ -1,4 +1,4 @@
-package org.code.ruyin.ds.tree;
+package org.code.ruyin.ds.ex;
 
 /**
  * @author hjxz

@@ -1,6 +1,6 @@
 package org.code.ruyin.ds.tree.binary;
 
-import org.code.ruyin.ds.tree.UnderflowException;
+import org.code.ruyin.ds.ex.UnderflowException;
 
 import java.util.Comparator;
 import java.util.Optional;
