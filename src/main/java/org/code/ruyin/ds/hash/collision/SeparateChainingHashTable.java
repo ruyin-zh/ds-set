@@ -9,7 +9,7 @@ import java.util.List;
  * @title 1、分离链接法
  * @description 除链表外,其它方案同样可解决冲突问题: 一颗二叉查找树或另一个散列表都可,
  *              不过若散列表是大的且散列函数是好的,那么所有的链表都应该是短的,这时其它方案就可不做考虑了;
- *
+ * @see package-info
  *              注意所有的匹配都是基于equals方法
  */
 public class SeparateChainingHashTable<T> {
