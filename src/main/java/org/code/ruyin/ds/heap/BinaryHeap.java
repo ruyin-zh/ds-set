@@ -12,15 +12,23 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 
 
     public BinaryHeap(){
-
+        this(DEFAULT_CAPACITY);
     }
 
     public BinaryHeap(int capacity){
-
+        currentSize = 0;
+        array = (T[]) new Comparable[capacity + 1];
     }
 
     public BinaryHeap(T[] items){
+        currentSize = items.length;
+        array = (T[]) new Comparable[(currentSize + 2) * 11 / 10];
 
+        int index = 1;
+        for (T item :items){
+            array[index++] = item;
+        }
+        buildHeap();
     }
 
     /******************************/
@@ -41,7 +49,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         if (currentSize == array.length - 1){
             enlargeArray(array.length * 2 + 1);
         }
-        //判断是否需要通过上虑来进行插入
+        //判断是否需要通过上虑(percolate up)来进行插入
         int hold = ++currentSize;
         for (array[0] = item; item.compareTo(array[hold / 2]) < 0; hold /= 2){
             array[hold] = array[hold / 2];
@@ -49,11 +57,20 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         array[hold] = item;
     }
 
+    /**
+     * 获取二叉堆的最小元素
+     *
+     * */
     public T findMin(){
-
-        return null;
+        if (isEmpty()){
+            throw new UnderflowException();
+        }
+        return array[1];
     }
 
+    /**
+     * 删除二叉堆最小元素,同时需要进行下滤操作
+     * */
     public T deleteMin(){
         if (isEmpty()){
             throw new UnderflowException();
@@ -61,20 +78,18 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 
         //获取二叉堆最小值
         T minItem = findMin();
-        //将最小值位置使用完全树的最后一位进行填充
+        //将最小值位置使用空穴的两个儿子中较小者移入空穴
         array[1] = array[currentSize--];
-
-        return null;
+        percolateDown(1);
+        return minItem;
     }
 
     public boolean isEmpty(){
-
-        return false;
+        return currentSize == 0;
     }
 
     public void makeEmpty(){
-
-
+        currentSize = 0;
     }
 
     //默认大小
@@ -84,18 +99,40 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     //当前维护数组结构
     private T[] array;
 
+    /**
+     * 内部处理方法
+     * @param hold 下滤操作位置
+     * */
+    private void percolateDown(int hold){
+        int child;
+        T tmp = array[hold];
 
-    private void percolateDown(){
-
+        for (; hold * 2 <= currentSize; hold = child){
+            child = hold * 2;
+            if (child != currentSize && array[child + 1].compareTo(array[child]) < 0){
+                child++;
+            }
+            if (array[child].compareTo(tmp) < 0){
+                array[hold] = array[child];
+            }else {
+                break;
+            }
+        }
+        array[hold] = tmp;
     }
 
     private void buildHeap(){
-
-
+        for (int i = currentSize / 2;i > 0;i--){
+            percolateDown(i);
+        }
     }
 
     private void enlargeArray(int newSize){
+        T[] old = array;
+        array = (T[]) new Comparable[newSize];
 
-
+        for (int i = 0; i< old.length; i++){
+            array[i] = old[i];
+        }
     }
 }
