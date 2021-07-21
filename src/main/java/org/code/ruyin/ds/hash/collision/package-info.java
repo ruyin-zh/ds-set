@@ -14,5 +14,5 @@ package org.code.ruyin.ds.hash.collision;
  * 第二类:几何探测法
  *      1)、线性探测法: hi(x) = (hash(x) + f(i)) mod TableSize, f(i) = i
  *      2)、平方探测法: hi(x) = (hash(x) + f(i)) mod TableSize, f(i) = i^2
- *      3)、双散列:
+ *      3)、双散列: hi(x) = (hash(x) + f(i)) mod TableSize, f(i) = i * hash2(x)
  * */

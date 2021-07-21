@@ -7,6 +7,8 @@ import java.util.Arrays;
  * @date 2021/7/8
  * @title 平方探测法
  * @description
+ * @see package-info
+ *
  */
 public class QuadraticProbingHashTable<T> {
 
@@ -122,8 +124,21 @@ public class QuadraticProbingHashTable<T> {
         return currentPos;
     }
 
+    /**
+     * 重散列
+     * */
     private void rehash(){
+        HashEntry<T>[] oldArr = array;
 
+        allocateArray(nextPrime(oldArr.length * 2));
+        currentSize = 0;
+        occupied = 0;
+
+        for (int i = 0; i < oldArr.length; i++){
+            if (oldArr[i] != null && array[i].active){
+                insert(oldArr[i].element);
+            }
+        }
     }
 
 
