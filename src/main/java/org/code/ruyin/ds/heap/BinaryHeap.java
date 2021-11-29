@@ -49,7 +49,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         if (currentSize == array.length - 1){
             enlargeArray(array.length * 2 + 1);
         }
-        //判断是否需要通过上虑(percolate up)来进行插入
+        //判断是否需要通过上滤(percolate up)来进行插入
         int hold = ++currentSize;
         for (array[0] = item; item.compareTo(array[hold / 2]) < 0; hold /= 2){
             array[hold] = array[hold / 2];
@@ -69,7 +69,10 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     }
 
     /**
-     * 删除二叉堆最小元素,同时需要进行下滤操作
+     * 删除二叉堆最小元素
+     * 1、将最小位置使用堆中最后元素填充并缩减堆中有效元素数;
+     * 2、从起始位置进行下滤操作;
+     * 3、返回被移除的元素;
      * */
     public T deleteMin(){
         if (isEmpty()){
@@ -78,16 +81,21 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 
         //获取二叉堆最小值
         T minItem = findMin();
-        //将最小值位置使用空穴的两个儿子中较小者移入空穴
+        //将最小值位置使用堆中最后一个元素移入空穴
+        //同时当前堆中元素总数将减少1
         array[1] = array[currentSize--];
         percolateDown(1);
         return minItem;
     }
 
+
     public boolean isEmpty(){
         return currentSize == 0;
     }
 
+    /**
+     * 清空堆中记录数,核心逻辑由currentSize控制
+     * */
     public void makeEmpty(){
         currentSize = 0;
     }
@@ -100,7 +108,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     private T[] array;
 
     /**
-     * 内部处理方法
+     * 内部下滤操作方法
      * @param hold 下滤操作位置
      * */
     private void percolateDown(int hold){

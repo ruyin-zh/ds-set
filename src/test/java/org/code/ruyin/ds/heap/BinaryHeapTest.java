@@ -29,4 +29,5 @@ public class BinaryHeapTest extends BaseTest {
             }
         }
     }
+
 }
