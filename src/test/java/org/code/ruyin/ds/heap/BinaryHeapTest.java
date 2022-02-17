@@ -30,4 +30,23 @@ public class BinaryHeapTest extends BaseTest {
         }
     }
 
+
+    @Test
+    @DisplayName("二叉堆上滤操作")
+    public void headUpPercolate(){
+        BinaryHeap<Integer> heap = new BinaryHeap<>();
+        heap.insert(13);
+        heap.insert(21);
+        heap.insert(16);
+        heap.insert(24);
+        heap.insert(31);
+        heap.insert(19);
+        heap.insert(68);
+        heap.insert(65);
+        heap.insert(26);
+        heap.insert(32);
+        heap.insert(14);
+        heap.deleteMin();
+    }
+
 }
