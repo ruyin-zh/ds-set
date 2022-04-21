@@ -30,6 +30,16 @@ public class BinarySearchTreeTest extends BaseTest {
         tree.remove(2);
         System.out.println("-------------------------------------");
         tree.printTree();
+
+
+        System.out.println(tree.contains(2));
+        System.out.println(tree.contains(3));
+        System.out.println(tree.contains(4));
+        System.out.println(tree.contains(5));
+
+
+        System.out.println(tree.findMin());
+        System.out.println(tree.findMax());
     }
 
 }

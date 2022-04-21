@@ -6,13 +6,13 @@ import java.util.Comparator;
 import java.util.Optional;
 
 /**
- * @author hjxz
+ * @author adsk
  * @date 2021/5/27
- * @title
- * @description 使二叉树成为二叉搜索树的性质:
- *              对于树中的每个节点X,它的左子树中所有项的值小于X中的项,它的右子树中所有项的值都大于X中的项;
+ *
+ * 使二叉树成为二叉搜索树的性质:
+ * 对于树中的每个节点X,它的左子树中所有项的值小于X中的项,它的右子树中所有项的值都大于X中的项;
  */
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<? super T>> {
 
     //此处为了简单起见,各项值之间互斥不存在重复值
     private BinaryNode<T> root;
@@ -80,16 +80,46 @@ public class BinarySearchTree<T extends Comparable<T>> {
         if (node == null) {
             return false;
         }
-        //优化之后的比较方法
+
+
+        //1、此处使用尾递归,避免调用栈过深
         int cmpResult = compatibleCompare(x, node.element);
-        //TODO 此处调用可以替换为尾递归,避免调用栈过深
-        if (cmpResult < 0) {
-            return contains(x, node.left);
-        } else if (cmpResult > 0) {
-            return contains(x, node.right);
-        } else {
-            return true;
+        while (cmpResult < 0){
+            node = node.left;
+            if (node == null){
+                break;
+            }
+            cmpResult = compatibleCompare(x, node.element);
         }
+
+
+        while (cmpResult > 0){
+            node = node.right;
+            if (node == null){
+                break;
+            }
+            cmpResult = compatibleCompare(x, node.element);
+            while (cmpResult < 0){
+                node = node.left;
+                if (node == null){
+                    break;
+                }
+                cmpResult = compatibleCompare(x, node.element);
+            }
+        }
+
+        return cmpResult == 0;
+
+        //优化之后的比较方法
+        //int cmpResult = compatibleCompare(x, node.element);
+        //2、递归调用之法
+        //if (cmpResult < 0) {
+        //    return contains(x, node.left);
+        //} else if (cmpResult > 0) {
+        //    return contains(x, node.right);
+        //} else {
+        //    return true;
+        //}
     }
 
     /**
@@ -145,6 +175,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return node;
     }
 
+    /**
+     * 巧妙的递归
+     *
+     * */
     private BinaryNode<T> remove(T x, BinaryNode<T> node) {
         //不存在左右节点则直接赋值为null
         if (node == null) {

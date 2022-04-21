@@ -1,10 +1,11 @@
 package org.code.ruyin.ds.tree;
 
 /**
- * @author hjxz
+ * @author adsk
  * @date 2021/5/27
- * @title
- * @description
+ *
+ * 树节点的一般定义
+ *
  */
 public class TreeNode<T> {
 
