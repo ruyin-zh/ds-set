@@ -167,6 +167,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return node;
     }
 
+    /**
+     * 打印树节点(中序遍历)
+     *
+     * */
     private void printTree(BinaryNode<T> node) {
         if (node == null) {
             return;

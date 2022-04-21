@@ -40,7 +40,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
      * 插入操作
      *
      * 为将一个元素item插入到堆中,需要在下一个可用位置上创建一个空穴,否则该堆将不是完全树;
-     * 若item可以放在该空穴中而不破坏堆序性质则插入完成,否则需要将空穴的父节点上的元素移入到该空穴中,如此空穴就朝着根的方向上冒一部;
+     * 若item可以放在该空穴中而不破坏堆序性质则插入完成,否则需要将空穴的父节点上的元素移入到该空穴中,如此空穴就朝着根的方向上冒一步;
      * 继续以上过程直到item能被放入到空穴中;
      *
      * */
@@ -51,6 +51,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         }
         //判断是否需要通过上滤(percolate up)来进行插入
         int hold = ++currentSize;
+        //hold /= 2操作在 array[hold] = array[hold / 2]之后
         for (array[0] = item; item.compareTo(array[hold / 2]) < 0; hold /= 2){
             array[hold] = array[hold / 2];
         }
