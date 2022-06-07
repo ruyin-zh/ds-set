@@ -5,13 +5,14 @@ import org.code.ruyin.ds.ex.UnderflowException;
 import java.util.Optional;
 
 /**
- * @author hjxz
+ * @author adsk
  * @date 2021/6/24
- * @title
- * @description 针对二叉搜索树移除和插入操作之后出现的不平衡进行处理, 防止出现最坏情况演变成线性结构
- *              平衡二叉树的性质: 任何节点左右子树高度差不可超过1;
+ *
+ * 针对二叉搜索树移除和插入操作之后出现的不平衡进行处理, 防止出现最坏情况而演变成线性结构
+ * 平衡二叉树的性质: 任何节点左右子树高度差不可超过1;
+ *
  */
-public class AvlTree<T extends Comparable<T>> {
+public class AvlTree<T extends Comparable<? super T>> {
 
     private AvlNode<T> root;
 
@@ -114,6 +115,7 @@ public class AvlTree<T extends Comparable<T>> {
             ;
         }
 
+        //
         return balance(node);
     }
 
@@ -130,6 +132,8 @@ public class AvlTree<T extends Comparable<T>> {
         if (node == null) {
             return null;
         }
+
+        //决定是否旋转依赖于前一节点高度是否满足要求
         if (height(node.leftNode) - height(node.rightNode) > ALLOWED_IMBALANCE) {
             //兼容在移除操作时根节点左子树的左右子树高度相等情况,此种情况可直接使用LL旋转
             if (height(node.leftNode.leftNode) >= height(node.leftNode.rightNode)) {
@@ -242,6 +246,7 @@ public class AvlTree<T extends Comparable<T>> {
         private T element;
         private AvlNode<T> leftNode;
         private AvlNode<T> rightNode;
+        //节点的高度
         private int height;
 
         public T getElement() {
