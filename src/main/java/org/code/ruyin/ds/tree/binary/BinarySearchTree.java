@@ -10,7 +10,7 @@ import java.util.Optional;
  * @date 2021/5/27
  *
  * 使二叉树成为二叉搜索树的性质:
- * 对于树中的每个节点X,它的左子树中所有项的值小于X中的项,它的右子树中所有项的值都大于X中的项;
+ * 对于树中的每个节点N,它的左子树中所有项的值小于N中的项,它的右子树中所有项的值都大于N中的项;
  */
 public class BinarySearchTree<T extends Comparable<? super T>> {
 

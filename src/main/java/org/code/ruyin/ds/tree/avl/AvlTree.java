@@ -135,14 +135,14 @@ public class AvlTree<T extends Comparable<? super T>> {
 
         //决定是否旋转依赖于前一节点高度是否满足要求
         if (height(node.leftNode) - height(node.rightNode) > ALLOWED_IMBALANCE) {
-            //兼容在移除操作时根节点左子树的左右子树高度相等情况,此种情况可直接使用LL旋转
+            //兼容在操作时失衡节点的左儿子的左子树高度不小于右子树高度的情况,此种情况可直接使用LL旋转
             if (height(node.leftNode.leftNode) >= height(node.leftNode.rightNode)) {
                 node = rotateWithLeftChild(node);
             } else {
                 node = doubleWithLeftChild(node);
             }
         } else if (height(node.rightNode) - height(node.leftNode) > ALLOWED_IMBALANCE) {
-            //兼容在移除操作时根节点右子树的左右子树高度相等情况,此种情况可直接使用RR旋转
+            //兼容在操作时失衡节点的右儿子的右子树高度不小于左子树高度的情况,此种情况可直接使用RR旋转
             if (height(node.rightNode.rightNode) >= height(node.rightNode.leftNode)) {
                 node = rotateWithRightChild(node);
             } else {
